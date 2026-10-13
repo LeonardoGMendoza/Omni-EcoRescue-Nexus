@@ -1,0 +1,111 @@
+/* Painel "Condições agora: El Niño" (usado dentro da tela de IA, .ia-neon). */
+.clima-topo { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.clima-topo a, .clima-fonte a { color: #075fba; text-decoration: underline; }
+.clima-atualizar { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; font: inherit; font-size: 13px; font-weight: 600; color: #0b2233; background: #f8fbfd; border: 1px solid #c9dbe6; border-radius: 8px; cursor: pointer; }
+.clima-atualizar:disabled { opacity: .6; cursor: default; }
+.clima-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.clima-bloco { border-radius: 10px; padding: 12px 14px; border: 2px solid var(--clima); background: var(--clima-bg); }
+.clima-calor { --clima: #ea580c; --clima-bg: #fff7ed; }
+.clima-chuva { --clima: #0284c7; --clima-bg: #f0f9ff; }
+.clima-bloco h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; font-family: 'Exo 2', 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 700; color: #0b2233; }
+.clima-bloco h3 svg { color: var(--clima); }
+.clima-bloco ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.clima-bloco li { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "cidade nivel" "valor valor"; gap: 2px 8px; padding: 8px 10px; border-radius: 8px; background: #ffffffcc; border: 1px solid #e2edf3; }
+.clima-cidade { grid-area: cidade; font-size: 14px; font-weight: 600; color: #0b2233; }
+.clima-cidade small { color: #4b657d; font-weight: 500; }
+.clima-valor { grid-area: valor; font-family: 'Exo 2', 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 700; color: var(--clima); }
+.clima-valor small { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; font-weight: 500; color: #4b657d; }
+.clima-nivel { grid-area: nivel; align-self: center; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.clima-nivel.alto { color: #fff; background: #dc2626; }
+.clima-nivel.atencao { color: #7c2d12; background: #fed7aa; }
+.clima-nivel.normal { color: #14532d; background: #dcfce7; }
+.clima-legenda { margin: 8px 0 0; font-size: 12px; color: #4b657d; }
+.clima-fonte { margin: 10px 0 0; font-size: 12px; color: #4b657d; }
+
+/* Mapa mundial: radar de chuva + alertas GDACS */
+.mundo-controles { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 10px 0; font-size: 14px; }
+.mundo-controles label { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; cursor: pointer; }
+.mundo-controles input { width: 18px; height: 18px; accent-color: #0b8f7c; }
+.mundo-controles small { color: #4b657d; }
+.mundo-mapa { height: 420px; border-radius: 10px; overflow: hidden; border: 1px solid #d6e5ee; }
+@media (max-width: 640px) { .mundo-mapa { height: 320px; } }
+.mundo-marcador { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font-size: 16px; background: #fff; border: 3px solid; box-shadow: 0 1px 6px #0006; }
+.mundo-marcador.vermelho { border-color: #dc2626; }
+.mundo-marcador.laranja { border-color: #f97316; }
+.mundo-lista { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 6px; }
+.mundo-lista li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 14px; padding: 8px 10px; border-radius: 8px; background: #f8fbfd; border: 1px solid #e2edf3; }
+.mundo-lista a { color: #075fba; text-decoration: underline; margin-left: auto; }
+.mundo-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #fff; padding: 2px 8px; border-radius: 999px; }
+.mundo-tag.vermelho { background: #dc2626; }
+.mundo-tag.laranja { background: #ea580c; }
+
+/* Mapa real da cidade, no estilo do desenho do Felipe (MapArtwork) */
+.cidade-escolha { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.cidade-chip { min-height: 40px; padding: 0 12px; font: inherit; font-size: 13px; font-weight: 600; color: #0b2233; background: #f8fbfd; border: 1px solid #c9dbe6; border-radius: 999px; cursor: pointer; }
+.cidade-chip[aria-pressed=true] { color: #fff; background: #0b8f7c; border-color: #0b8f7c; }
+.cidade-chip:disabled { opacity: .5; cursor: default; }
+.cidade-busca { display: flex; gap: 6px; flex: 1 1 260px; min-width: 0; }
+.cidade-busca .ia-input { min-height: 40px; padding: 6px 12px; }
+.cidade-resumo { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 13px; color: #284662; margin: 0 0 10px; }
+.cidade-resumo i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.cidade-mapa { position: relative; z-index: 0; isolation: isolate; height: 460px; border-radius: 10px; overflow: hidden; border: 1px solid #1d4f3f; background: #1c372d; }
+.cidade-mapa .leaflet-container { background: #1c372d; }
+@media (max-width: 640px) { .cidade-mapa { height: 340px; } }
+/* Mapa do OpenStreetMap (sem chave) escurecido por CSS e puxado para o verde-escuro do desenho (#183d32).
+   Só a camada base recebe o filtro: radar e marcadores ficam com as cores reais. */
+.cidade-marcador { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #fff; box-shadow: 0 2px 10px #0008; }
+.cidade-marcador svg { width: 18px; height: 18px; }
+.mundo-lista li { display: block; padding: 0; }
+.mundo-item { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; width: 100%; min-height: 44px; padding: 8px 10px; font: inherit; font-size: 14px; color: #0b2233; text-align: left; background: none; border: 0; border-radius: 8px; cursor: pointer; }
+.mundo-item:hover { background: #eef6fa; }
+.mundo-mais { margin-left: auto; font-size: 12px; color: #075fba; white-space: nowrap; }
+.mundo-detalhe { padding: 4px 12px 12px; border-top: 1px solid #e2edf3; }
+.mundo-detalhe dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 8px 0; font-size: 13px; }
+.mundo-detalhe dt { font-weight: 600; color: #4b657d; }
+.mundo-detalhe dd { margin: 0; color: #0b2233; }
+.mundo-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mundo-fonte { font-size: 12px; color: #4b657d; text-decoration: underline; }
+.mundo-marcador.foco { transform: scale(1.35); box-shadow: 0 0 0 6px #f9731655, 0 1px 6px #0006; }
+@media (max-width: 520px) { .mundo-detalhe dl { grid-template-columns: 1fr; } .mundo-detalhe dt { margin-top: 4px; } }
+
+/* El Niño: da causa ao efeito */
+.nino-passos { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 18px; }
+.nino-passos h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; font-family: 'Exo 2', 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 700; color: #0b2233; }
+.nino-passos h3 span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; font-size: 13px; color: #fff; background: #0b8f7c; }
+.nino-passos .quente { color: #dc2626; }
+.nino-passos .frio { color: #2563eb; }
+.nino-mapa .nino-base { filter: invert(1) hue-rotate(180deg) grayscale(.6) brightness(.55); }
+.nino-mapa { position: relative; height: 360px; margin-top: 8px; border-radius: 10px; overflow: hidden; border: 1px solid #1f2937; background: #111827; }
+.nino-legenda { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 12px; color: #4b657d; }
+.nino-legenda i { flex: 0 1 220px; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #1e3a8a, #60a5fa, #f8fafc, #f87171, #991b1b); }
+/* Animação do satélite (filme dos últimos 60 dias) */
+.nino-filme { position: absolute; left: 10px; bottom: 10px; z-index: 500; display: flex; align-items: center; gap: 10px; max-width: calc(100% - 20px); padding: 6px 10px; border-radius: 10px; background: #0b1220d9; color: #fff; font-size: 13px; }
+.nino-controles { display: flex; align-items: center; gap: 10px; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .25s, opacity .25s; }
+.nino-mapa:hover .nino-controles, .nino-filme:focus-within .nino-controles { max-width: 420px; opacity: 1; }
+.nino-filme { gap: 0; }
+.nino-mapa:hover .nino-filme, .nino-filme:focus-within { gap: 10px; }
+.nino-play { min-height: 32px; padding: 0 12px; border: 1px solid #ffffff55; border-radius: 8px; background: #0b8f7c; color: #fff; font: inherit; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.nino-filme input[type=range] { width: 160px; min-width: 0; flex: 1 1 160px; accent-color: #f87171; }
+.nino-data { font-family: 'Exo 2', 'Segoe UI', system-ui, sans-serif; font-weight: 700; white-space: nowrap; }
+.nino-pulso { animation: nino-pulso 1.6s ease-in-out infinite; }
+@keyframes nino-pulso { 50% { stroke-opacity: .35; stroke-width: 4px; } }
+/* Desenho "causa → efeito" animado */
+.nino-calor { animation: nino-calor 2.4s ease-in-out infinite; }
+@keyframes nino-calor { 50% { fill: #fecaca; stroke-width: 3.5px; } }
+.nino-onda { animation: nino-onda 3s linear infinite; }
+.nino-onda.lenta { animation-duration: 4.5s; }
+@keyframes nino-onda { to { transform: translateX(60px); } }
+.nino-fluxo { stroke-dasharray: 10 7; animation: nino-fluxo 1s linear infinite; }
+@keyframes nino-fluxo { to { stroke-dashoffset: -17; } }
+.nino-sol { transform-box: fill-box; transform-origin: center; animation: nino-sol 8s linear infinite; }
+@keyframes nino-sol { to { transform: rotate(360deg); } }
+.nino-gota { animation: nino-gota 1s linear infinite; }
+@keyframes nino-gota { from { transform: translateY(-4px); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(12px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .nino-pulso, .nino-calor, .nino-onda, .nino-fluxo, .nino-sol, .nino-gota { animation: none; }
+  .nino-particula { display: none; }
+}
+.nino-rotulo { font-size: 12px; font-weight: 600; }
+.nino-windy { display: block; width: 100%; height: 420px; border: 0; border-radius: 10px; background: #0f172a; }
+.nino-desenho { display: block; width: 100%; max-width: 680px; height: auto; margin-top: 6px; font-family: 'Segoe UI', system-ui, sans-serif; }
+@media (max-width: 640px) { .nino-mapa { height: 300px; } .nino-filme input[type=range] { width: 90px; flex-basis: 90px; } .nino-filme { font-size: 12px; gap: 6px; } .nino-recente { display: none; } .nino-windy { height: 340px; } }

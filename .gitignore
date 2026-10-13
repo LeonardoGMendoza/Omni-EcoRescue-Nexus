@@ -1,0 +1,56 @@
+__pycache__/
+*.pyc
+*.pem
+.oci/
+
+.streamlit/secrets.toml
+# Chaves da IA para o servidor (gerado por deploy/gerar_ia_env.py)
+deploy/ia.env
+banco_historico/
+*.bak*
+
+# Ambientes e material sensível local
+.env
+.env.*
+!.env.example
+*.key
+*.p8
+*.p12
+*.pfx
+*.jks
+*.keystore
+credentials.json
+secrets.json
+
+# Dados e arquivos gerados localmente
+*.log
+*.tmp
+*.sqlite
+*.sqlite3
+*.db
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Evidências geradas de validação
+/frontend-react/validation/*.jpg
+/frontend-react/validation/*.json
+/frontend-react/validation/*.txt
+
+# --- Nexus ---
+# Segredos: nunca no repositório
+.env
+*.env
+deploy/*.env
+*.pem
+*.key
+# Arquivos de trabalho que não devem subir
+transcript*.txt
+*_messages.txt
+all_user_inputs.txt
+patch*.py
+test_b.py
+test_c.js
+test_script.js

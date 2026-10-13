@@ -1,0 +1,21 @@
+# Publicação no servidor: só a API roda em container. As telas (React) são arquivos
+# estáticos servidos pelo nginx do próprio servidor em /var/www/omni.
+services:
+  omni-api:
+    build: ../backend/api
+    container_name: omni-api
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8010:8000"   # só o nginx do servidor acessa; não fica aberta na internet
+    environment:
+      REACT_CORS_ORIGINS: "https://omni.sandlj.com.br"
+      NASA_CACHE_SECONDS: "600"
+    # Chaves da IA (Cohere + Oracle). Arquivo só no servidor, fora do GitHub.
+    # Gerado no PC com: python deploy/gerar_ia_env.py
+    env_file: ia.env
+    volumes:
+      - omni-rag:/data          # vetores da IA: calculados uma vez só
+    mem_limit: 768m             # o SDK da Oracle pesa; 384m era só para a API sem IA
+
+volumes:
+  omni-rag:

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omni-EcoRescue Nexus</title>
+<meta name="description" content="Rede de proteção em camadas que mantém as pessoas vivas em catástrofes, mesmo quando a internet, a energia e o sinal caem. Agentes de IA trabalham 24 horas; quem decide é sempre um humano.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: página única de apresentação; a pilha das 9 camadas é o elemento central */
+:root{
+  --bg:#06141a; --surface:#0c222a; --surface-2:#11303a; --line:#1f4652;
+  --ink:#eaf3f2; --muted:#9db7bc; --accent:#2fd6b9; --marker:#ffcc00;
+  --antes:#14a093; --detect:#3b82f6; --durante:#f08c1a; --depois:#9b6cf0;
+  --display:"Archivo","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#f2f7f6; --surface:#ffffff; --surface-2:#e8f1f0; --line:#cfe0df;
+  --ink:#0d2228; --muted:#4f676d; --accent:#0a7f71; --marker:#e0a800;
+  --antes:#0e8a7e; --detect:#2563eb; --durante:#c76d05; --depois:#7c4ddb; color-scheme:light}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+a{color:var(--accent)}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+section{padding-block:72px;border-top:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,5vw,46px);font-weight:900;margin:10px 0 14px;letter-spacing:-.02em}
+h3{font-size:20px;font-weight:700}
+.lead{color:var(--muted);font-size:19px;max-width:64ch;margin:0}
+/* topo */
+nav.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:18px;height:58px}
+.logo{font-family:var(--display);font-weight:900;font-size:18px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:12px;height:12px;border-radius:3px;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 25%,transparent)}
+nav.top .links{margin-left:auto;display:flex;gap:16px;font-size:14px;flex-wrap:wrap}
+nav.top .links a{color:var(--muted);text-decoration:none}
+nav.top .links a:hover{color:var(--ink)}
+/* hero */
+.hero{padding-block:80px 64px;border-top:0}
+.hero h1{font-size:clamp(44px,9vw,104px);font-weight:900;letter-spacing:-.035em;margin:14px 0 18px}
+.hero h1 span{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{font-family:var(--mono);font-size:14px;border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:999px}
+.chip b{color:var(--marker)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn.main{background:var(--accent);border-color:var(--accent);color:#04201b}
+.btn:focus-visible,.camada:focus-visible{outline:3px solid var(--marker);outline-offset:2px}
+/* problema */
+.duas{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:start}
+.perguntas{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.perguntas li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.numero{font-family:var(--display);font-weight:900;font-size:64px;line-height:1;color:var(--marker)}
+.fonte{font-size:13px;color:var(--muted)}
+/* camadas */
+.pilha{display:flex;flex-direction:column;gap:8px;margin-top:30px}
+.camada{all:unset;box-sizing:border-box;display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:16px;align-items:center;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--cor);border-radius:12px;padding:14px 18px;transition:transform .15s}
+.camada:hover{transform:translateX(4px)}
+.camada .n{font-family:var(--display);font-weight:900;font-size:34px;color:var(--cor);text-align:center}
+.camada .t{font-family:var(--display);font-weight:700;font-size:21px}
+.camada .d{color:var(--muted);font-size:15px}
+.camada .tag{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right;max-width:220px}
+.camada .mais{grid-column:2/-1;display:none;font-size:15px;border-top:1px dashed var(--line);padding-top:10px;margin-top:2px}
+.camada[aria-expanded="true"] .mais{display:block}
+.legenda{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px;font-size:14px;color:var(--muted)}
+.legenda span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
+.protecoes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.prot{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:18px}
+.prot p{margin:6px 0 0;color:var(--muted);font-size:15px}
+/* enxame */
+.agentes{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:28px}
+.agente{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.agente .cam{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.agente p{margin:6px 0 10px;font-size:15px}
+.agente .pode,.agente .nao{font-size:13.5px;margin:2px 0}
+.pode::before{content:"✓ ";color:var(--accent);font-weight:700}
+.nao::before{content:"✕ ";color:#ff6b6b;font-weight:700}
+.agente.humano{background:var(--marker);color:#1a1400;border-color:var(--marker)}
+.agente.humano .cam,.agente.humano .pode,.agente.humano .nao{color:#3d3200}
+.fluxo{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:30px;counter-reset:f}
+.passo{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14px;position:relative;min-width:0}
+.passo b{display:block;font-family:var(--display);font-size:15px;margin-bottom:4px}
+.passo.sim{background:var(--marker);color:#1a1400;border-color:var(--marker)}
+/* leis */
+.leis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}
+.lei{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.lei .num{font-family:var(--mono);font-size:13px;color:var(--marker);letter-spacing:.1em}
+.lei p{margin:8px 0 0;color:var(--muted);font-size:15.5px}
+.trava{margin-top:10px;font-size:14px;border-top:1px dashed var(--line);padding-top:10px}
+.trava::before{content:"Trava no código: ";font-weight:600;color:var(--accent)}
+.aviso{margin-top:22px;background:var(--surface-2);border-left:4px solid var(--marker);padding:14px 18px;border-radius:0 10px 10px 0;font-size:15.5px}
+/* mundo */
+.mundo{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:28px}
+.pais{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.pais .big{font-family:var(--display);font-weight:900;font-size:36px;color:var(--accent);line-height:1}
+.pais h3{font-size:17px;margin-top:8px}
+.pais p{margin:6px 0 8px;color:var(--muted);font-size:14.5px}
+.pais a{font-size:13px}
+/* plano */
+.fases{display:flex;flex-direction:column;gap:0;margin-top:28px;border-left:2px solid var(--line);margin-left:10px}
+.fase{position:relative;padding:0 0 22px 26px}
+.fase::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--muted)}
+.fase.feita::before{background:var(--accent);border-color:var(--accent)}
+.fase.agora::before{background:var(--marker);border-color:var(--marker)}
+.fase .q{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.fase p{margin:4px 0 0;color:var(--muted);font-size:15px;max-width:70ch}
+.st{font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:3px}
+.st.ok{background:var(--accent);color:#04201b}.st.prox{background:var(--marker);color:#1a1400}
+footer{border-top:1px solid var(--line);padding-block:40px 60px;color:var(--muted);font-size:14.5px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between}
+@media (max-width:860px){
+  .duas,.leis,.protecoes{grid-template-columns:minmax(0,1fr)}
+  .fluxo{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .camada{grid-template-columns:44px minmax(0,1fr)}
+  .camada .tag{grid-column:2;text-align:left;max-width:none}
+  .camada .n{font-size:26px}
+  nav.top .links{display:none}
+  section{padding-block:56px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.camada{transition:none}}
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <a class="logo" href="#"><i></i>Omni-EcoRescue Nexus</a>
+  <div class="links"><a href="#camadas">Camadas</a><a href="#enxame">Enxame</a><a href="#leis">Leis</a><a href="#mundo">O mundo</a><a href="#plano">Plano</a><a href="https://github.com/LeonardoGMendoza/Omni-EcoRescue-Nexus">GitHub</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Defesa em profundidade para catástrofes</span>
+  <h1>Quando tudo cai,<br>o <span>Nexus</span> continua.</h1>
+  <p class="lead">Uma rede de proteção em camadas que mantém as pessoas vivas em catástrofes, mesmo quando a internet, a energia e o sinal de celular caem. Agentes de IA trabalham 24 horas; quem decide é sempre um humano.</p>
+  <div class="chips"><span class="chip"><b>9</b> camadas de defesa</span><span class="chip"><b>11</b> agentes de IA</span><span class="chip"><b>1</b> humano no comando</span><span class="chip"><b>0</b> dado inventado</span></div>
+  <div class="ctas"><a class="btn main" href="#camadas">Ver as 9 camadas</a><a class="btn" href="https://github.com/LeonardoGMendoza/Omni-EcoRescue-Nexus">Código no GitHub</a></div>
+</div></header>
+
+<section id="problema"><div class="wrap duas">
+  <div>
+    <span class="eyebrow">O problema</span>
+    <h2>O Brasil já tem o alarme. Falta o que vem depois.</h2>
+    <p class="lead">O Defesa Civil Alerta faz o celular apitar na área de risco. Mas, quando o alarme toca, as perguntas começam:</p>
+    <ul class="perguntas" style="margin-top:20px">
+      <li>Para onde eu vou? Qual abrigo está aberto e tem vaga?</li>
+      <li>Como chego lá se a internet caiu?</li>
+      <li>Como os abrigos falam entre si se a cidade ficar isolada?</li>
+      <li>Como as famílias se reencontram?</li>
+      <li>Em quem confiar quando circulam boatos?</li>
+    </ul>
+  </div>
+  <div>
+    <div class="numero">805</div>
+    <p>alertas graves e extremos enviados por celular no Brasil em 2025, mais cerca de 1,16 milhão de SMS pelo 40199.</p>
+    <p class="fonte">Fonte: <a href="https://teletime.com.br/08/01/2026/defesa-civil-e-abr-telecom-emitiram-805-alertas-de-risco-em-2025/">Teletime / ABR Telecom</a></p>
+    <div class="numero" style="margin-top:26px">⅓</div>
+    <p>dos países do mundo (cerca de 60) ainda não tem um sistema completo de alerta. A meta da ONU é proteger todas as pessoas até 2027.</p>
+    <p class="fonte">Fonte: <a href="https://www.climatechangenews.com/2026/09/23/despite-real-progress-third-of-countries-still-lack-early-warning-systems/">Climate Home News</a></p>
+  </div>
+</div></section>
+
+<section id="camadas"><div class="wrap">
+  <span class="eyebrow">A solução</span>
+  <h2>9 camadas. Se uma falha, a próxima segura.</h2>
+  <p class="lead">Como a defesa de Israel, que tem uma camada para cada distância e tipo de ameaça, o Nexus protege do antes ao depois. Toque em uma camada para ver mais.</p>
+  <div class="legenda"><span style="--c:var(--antes)">Antes</span><span style="--c:var(--detect)">Detectar</span><span style="--c:var(--durante)">Durante</span><span style="--c:var(--depois)">Depois</span></div>
+  <div class="pilha" id="pilha"></div>
+
+  <div class="protecoes">
+    <div class="prot"><h3>🛡️ Defesa contra ataques</h3><p>Hacker, alerta falso ou servidor derrubado. Senhas só no servidor, código do operador, registros que ninguém apaga e servidores em lugares diferentes.</p></div>
+    <div class="prot"><h3>⚡ Energia</h3><p>Painel solar e bateria nos pontos críticos. Sem energia, nenhuma camada funciona.</p></div>
+    <div class="prot"><h3>⚖️ As Leis do Enxame</h3><p>O humano no comando, em todas as camadas. Nenhum alerta sai sem um SIM.</p></div>
+  </div>
+</div></section>
+
+<section id="enxame"><div class="wrap">
+  <span class="eyebrow">O Enxame</span>
+  <h2>Uma sala de crise que nunca dorme.</h2>
+  <p class="lead">Cada agente de IA é um especialista e faz só a sua parte. Nenhum deles reúne as permissões de ver, decidir e enviar.</p>
+  <div class="agentes" id="agentes"></div>
+
+  <h3 style="margin-top:44px">Como um alerta nasce</h3>
+  <div class="fluxo">
+    <div class="passo"><b>Sentinela</b>vê o evento numa fonte oficial</div>
+    <div class="passo"><b>Juiz</b>confirma: 3 de 5 fontes concordam</div>
+    <div class="passo"><b>Calculista</b>calcula onde o perigo chega e quando</div>
+    <div class="passo"><b>Analista</b>diz o que fazer, com PDF e página</div>
+    <div class="passo"><b>Redator</b>"Enviar a 37 pessoas de Lajeado?"</div>
+    <div class="passo sim"><b>👤 Comandante</b>responde SIM</div>
+    <div class="passo"><b>Despachante</b>envia só para a área calculada</div>
+  </div>
+</div></section>
+
+<section id="leis"><div class="wrap">
+  <span class="eyebrow">As Leis do Enxame</span>
+  <h2>Inspiradas em Asimov. Feitas para não virar uma Skynet.</h2>
+  <p class="lead">Nos livros de Asimov as leis falham: a Lei Zero deixa o robô "sacrificar alguns pelo bem de todos". No Nexus, o humano fica sempre acima, e cada lei vira uma trava no código.</p>
+  <div class="leis">
+    <div class="lei"><span class="num">LEI ZERO</span><h3>A decisão sobre vidas é sempre humana.</h3><p>Nenhum agente decide sozinho "em nome da humanidade". Escolher entre pessoas é sempre de uma pessoa responsável.</p><div class="trava">nenhum agente tem a credencial de envio; só o serviço de aprovação humana libera.</div></div>
+    <div class="lei"><span class="num">PRIMEIRA LEI</span><h3>Nunca causar mal, nunca ficar calado diante do perigo.</h3><p>Nada de dado inventado, alerta falso ou dado pessoal exposto. Se perceber perigo, o agente é obrigado a avisar o humano.</p><div class="trava">alerta sem fonte verificável é bloqueado; agentes só veem contagens e áreas.</div></div>
+    <div class="lei"><span class="num">SEGUNDA LEI</span><h3>Obedecer ao humano autorizado, menos para causar mal.</h3><p>Ordens como "envie um alerta falso" ou "passe a lista de celulares" são recusadas e registradas.</p><div class="trava">autenticação do operador e lista de ações proibidas.</div></div>
+    <div class="lei"><span class="num">TERCEIRA LEI</span><h3>Manter-se funcionando, nunca resistir a ser desligado.</h3><p>O agente cuida da própria saúde, mas pausar, corrigir ou apagar um agente é direito do humano.</p><div class="trava">o botão de desligar fica fora dos agentes.</div></div>
+  </div>
+  <p class="aviso">Por que não é uma Skynet: não existe um cérebro só. Se o servidor central cair, os Guardiões nos abrigos continuam funcionando sozinhos, e tudo fica registrado num lugar que os agentes não conseguem apagar.</p>
+</div></section>
+
+<section id="mundo"><div class="wrap">
+  <span class="eyebrow">O mundo já faz pedaços disso</span>
+  <h2>Ninguém junta tudo num sistema só.</h2>
+  <p class="lead">O Nexus não inventa tecnologia nova. Ele junta o que já salva vidas no mundo, com tecnologia barata ao alcance de qualquer prefeitura.</p>
+  <div class="mundo" id="mundoGrid"></div>
+</div></section>
+
+<section id="plano"><div class="wrap">
+  <span class="eyebrow">O plano</span>
+  <h2>Começa pelo que funciona sem internet.</h2>
+  <p class="lead">A primeira entrega é o celular e o abrigo funcionando quando a rede cai. Os agentes de vigilância vêm depois.</p>
+  <div class="fases">
+    <div class="fase feita"><span class="q">FASE 0</span><span class="st ok">concluída</span><h3>Fundação</h3><p>Base de código herdada do Omni-EcoRescue V3: API, site React, IA sobre documentos oficiais e alertas por WhatsApp, tudo com dados reais.</p></div>
+    <div class="fase agora"><span class="q">FASE 1 · CAMADA 6</span><span class="st prox">próxima</span><h3>Sem internet no celular</h3><p>"Baixar minha região", como o Spotify offline: abrigos, hospitais, telefones de emergência, guia, checklist e mapa do bairro salvos no celular. O GPS aponta o caminho.</p></div>
+    <div class="fase"><span class="q">FASE 2 · CAMADA 7</span><h3>Sem internet no abrigo</h3><p>Nó Nexus: Wi-Fi local, rádio LoRa entre abrigos, IA local, energia solar, registro de pessoas e procura de parentes.</p></div>
+    <div class="fase"><span class="q">FASE 3 · CAMADAS 2 E 3</span><h3>Ver e confirmar</h3><p>Sentinela, Mecânico e Juiz: vigilância das fontes, saúde do sistema e Nota de Confiança.</p></div>
+    <div class="fase"><span class="q">FASE 4 · CAMADAS 4 E 5</span><h3>Calcular e avisar</h3><p>Área de impacto por evento e alerta por CEP com o SIM do operador, também descendo pelo rádio até os abrigos.</p></div>
+    <div class="fase"><span class="q">FASE 5 · CAMADA 6</span><h3>Conversar</h3><p>Atendente no WhatsApp e SMS para quem não tem dados.</p></div>
+    <div class="fase"><span class="q">FASE 6 · CAMADAS 1 E 9</span><h3>Gente</h3><p>Rede de voluntários, dia de simulado, reencontro de famílias e relatório pós-evento.</p></div>
+    <div class="fase"><span class="q">FASE 7 · CAMADA 8</span><h3>Céu</h3><p>Ponte por satélite e estação de satélite meteorológico.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div><strong style="color:var(--ink)">Omni-EcoRescue Nexus</strong><br>Leonardo Junior Gonzales Mendoza<br>Evolução do Omni-EcoRescue V3 (Tech4Change 2026, Grupo 12).</div>
+  <div>Documentos: <a href="LEIS.html">Leis</a> · <a href="ENXAME.html">Enxame</a> · <a href="PLANO.html">Plano</a> · <a href="TECNOLOGIAS.html">Tecnologias</a> · <a href="REFERENCIAS.html">Referências</a><br><a href="https://github.com/LeonardoGMendoza/Omni-EcoRescue-Nexus">github.com/LeonardoGMendoza/Omni-EcoRescue-Nexus</a></div>
+</div></footer>
+
+<script>
+const CAMADAS = [
+  ['antes','Preparar','Pessoas treinadas, voluntários, kit da família, dia de simulado.','Bangladesh · Alemanha','Bangladesh reduziu as mortes por ciclone em mais de 100 vezes com 76 mil voluntários, bandeiras e megafones. A Alemanha faz um Dia Nacional de Teste todo ano.'],
+  ['antes','Prever de longe','Satélite, previsão do tempo e IA vendo o perigo dias antes.','Arrow (Israel) · Google Flood Hub','A camada mais distante: NASA, previsão e modelos de enchente por IA entram como fontes do agente Sentinela.'],
+  ['detect','Detectar e confirmar','Sensores, relato do cidadão e a Nota de Confiança, para não alertar por boato.','Celular como sensor (Google)','O agente Juiz só libera o alerta quando várias fontes independentes concordam. Com uma fonte só, aparece "confiança baixa, verificar".'],
+  ['detect','Calcular o caminho','Onde a água ou o fogo vai chegar e quando; só aciona quem está no caminho.','Cúpula de Ferro (Israel)','Como a Cúpula de Ferro, que ignora o que cai em área vazia, o Nexus não assusta a cidade inteira: avisa por área, com o tempo até o perigo chegar.'],
+  ['durante','Avisar','WhatsApp, SMS, app e alto-falante do abrigo, com o SIM humano.','IPAWS (EUA) · MoWaS (Alemanha)','Um painel só dispara todos os canais, no formato internacional de alerta (CAP), e só depois da aprovação de uma pessoa.'],
+  ['durante','Guiar','Rota e abrigo mais perto, funcionando até sem internet.','Comando da Frente Interna (Israel)','"Baixar minha região", como o Spotify offline. O pedido de ajuda e o "estou bem" ficam guardados e saem sozinhos quando o sinal volta.'],
+  ['durante','Abrigar e conectar','Nó Nexus no abrigo: Wi-Fi local, rádio LoRa, IA local, energia solar.','Q-ANPI (Japão)','O Japão conecta os abrigos por satélite. O Nexus faz o mesmo com rádio barato e painel solar: quem chega conecta no Wi-Fi do abrigo e abre o app sem internet.'],
+  ['durante','Ponte com o mundo','Satélite quando a cidade fica isolada.','Starlink · BeiDou','Um nó central com satélite recebe as informações dos abrigos pelo rádio e as manda para fora, e traz de fora os alertas oficiais.'],
+  ['depois','Recuperar e aprender','Reencontrar famílias, organizar ajuda, relatório do que funcionou.','Agente Relator','Depois do evento, o Relator mostra o que aconteceu, o que funcionou e o que melhorar.'],
+];
+const COR = {antes:'var(--antes)',detect:'var(--detect)',durante:'var(--durante)',depois:'var(--depois)'};
+document.getElementById('pilha').innerHTML = CAMADAS.map(([f,t,d,tag,mais],i) =>
+  `<button class="camada" style="--cor:${COR[f]}" aria-expanded="false"><span class="n">${i+1}</span><span><span class="t">${t}</span><br><span class="d">${d}</span></span><span class="tag">${tag}</span><span class="mais">${mais}</span></button>`).join('');
+document.getElementById('pilha').addEventListener('click', e => {
+  const b = e.target.closest('.camada'); if (!b) return;
+  b.setAttribute('aria-expanded', b.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+});
+
+const AGENTES = [
+  ['🛰️ Sentinela','2','Vigia NASA, ONU, previsão e alertas oficiais a cada 10 min.','ler fontes públicas','enviar mensagens'],
+  ['🔧 Mecânico','todas','Vigia a saúde das fontes e dos próprios agentes.','avisar o operador','mudar configuração sozinho'],
+  ['⚖️ Juiz','3','Dá a Nota de Confiança: quantas fontes confirmam o fato.','ler eventos e relatos','descartar sem registrar'],
+  ['📱 Ouvinte','3','Recebe relatos de cidadãos e voluntários.','ler relatos anônimos','ver dados pessoais'],
+  ['🧭 Calculista','4','Calcula onde o perigo vai chegar e quando.','ler mapas e previsões','decidir quem é avisado'],
+  ['📚 Analista','4–5','Consulta documentos oficiais e diz o que fazer, com PDF e página.','ler a base de documentos','inventar fonte'],
+  ['✍️ Redator','5','Escreve a versão técnica e a versão simples.','gerar rascunho','enviar'],
+  ['📣 Despachante','5','Envia só para as áreas certas, depois do SIM.','enviar com aprovação registrada','enviar sem SIM'],
+  ['💬 Atendente','6','Responde "onde tem abrigo?" e "vai chover aqui?".','dar informação pública','emitir alerta'],
+  ['🏠 Guardião do Abrigo','7','Roda no abrigo, sem internet: vagas, faltas, parentes.','operar offline','sair da rede local sem ponte'],
+  ['📝 Relator','9','Relatório do que aconteceu e do que melhorar.','ler registros','alterar registros'],
+];
+document.getElementById('agentes').innerHTML = AGENTES.map(([n,c,d,p,x]) =>
+  `<div class="agente"><h3>${n}</h3><span class="cam">camada ${c}</span><p>${d}</p><div class="pode">${p}</div><div class="nao">${x}</div></div>`).join('')
+  + `<div class="agente humano"><h3>👤 Comandante</h3><span class="cam">acima de todos</span><p>O operador da Defesa Civil ou da empresa. Aprova ou recusa cada alerta.</p><div class="pode">decidir e desligar qualquer agente</div></div>`;
+
+const MUNDO = [
+  ['100×','🇧🇩 Bangladesh','Mortes por ciclone caíram mais de 100 vezes desde 1970, com 76 mil voluntários, bandeiras e megafones.','https://www.thenewhumanitarian.org/investigation/2021/12/2/how-Bangladesh-is-beating-the-odds-on-climate-disaster-deaths'],
+  ['60 s','🇲🇽 México · SASMEX','Sensores na costa avisam a Cidade do México até 60 segundos antes do terremoto, por mais de 8.200 alto-falantes.','https://en.wikipedia.org/wiki/Mexican_Seismic_Alert_System'],
+  ['2,5 bi','🌍 Google · Android','Celulares viram sensores de terremoto em cerca de 100 países.','https://www.research.google/blog/android-earthquake-alerts-a-global-system-for-early-warning/'],
+  ['Q-ANPI','🇯🇵 Japão','Abrigos informam por satélite vagas e condições, e parentes procuram pessoas. O mais parecido com o Nó Nexus.','https://gexpo.qzss.info/images/panel/panel3.pdf'],
+  ['360 mil','🇨🇭 Suíça','Abrigos garantidos por lei para todo morador.','https://www.iamexpat.ch/housing/real-estate-news/it-true-every-house-switzerland-has-nuclear-fallout-shelter'],
+  ['1 painel','🇺🇸 EUA · IPAWS','Um só lugar dispara celular, rádio, TV e sirenes, no formato CAP.','https://fema.gov/ipaws'],
+  ['LoRa','📻 disaster.radio','Nós de rádio solares que repassam mensagens sem internet.','https://f-droid.org/is/packages/tk.giesecke.disaster_radio'],
+  ['2026','🛰️ Starlink','Alerta de emergência por satélite direto no celular, anunciado em março de 2026.','https://dplnews.com/mediatek-y-starlink-ofreceran-alertas-de-emergencia-via-satelite/'],
+];
+document.getElementById('mundoGrid').innerHTML = MUNDO.map(([b,t,d,u]) =>
+  `<div class="pais"><div class="big">${b}</div><h3>${t}</h3><p>${d}</p><a href="${u}" target="_blank" rel="noopener">Fonte</a></div>`).join('');
+</script>
+</body>
+</html>
